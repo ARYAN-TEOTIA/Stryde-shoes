@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRYDE — Premium Footwear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ee;
+    --cream: #ede9e3;
+    --accent: #c8372d;
+    --accent2: #e8824a;
+    --gray: #9a9590;
+    --mid: #2a2826;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.12em; color: var(--white); }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+  .cart-btn { position: relative; background: none; border: none; cursor: pointer; color: var(--white); font-size: 1.2rem; }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: white; font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+  .nav-cta { background: var(--accent); color: white; border: none; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+  .nav-cta:hover { background: #a8271e; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 6rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(200,55,45,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 9vw, 10rem);
+    line-height: 0.9;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 2rem;
+  }
+  .hero-headline em { color: var(--accent); font-style: normal; }
+  .hero-sub { color: var(--gray); font-size: 1rem; font-weight: 300; line-height: 1.7; max-width: 400px; margin-bottom: 2.5rem; }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary { background: var(--accent); color: white; border: none; padding: 1rem 2.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+  .btn-primary:hover { background: #a8271e; transform: translateY(-1px); }
+  .btn-ghost { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 1rem 2.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--white); }
+
+  .hero-image-side {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .shoe-showcase {
+    width: 520px; height: 520px;
+    background: radial-gradient(circle at 50% 60%, rgba(200,55,45,0.15) 0%, transparent 70%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .shoe-svg { width: 440px; filter: drop-shadow(0 30px 60px rgba(200,55,45,0.3)); animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-18px) rotate(2deg); } }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--white); letter-spacing: 0.05em; }
+  .stat-label { font-size: 0.75rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+  /* ── MARQUEE ── */
+  .marquee-strip {
+    background: var(--accent); padding: 0.8rem 0; overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner { display: inline-block; animation: marquee 18s linear infinite; }
+  .marquee-inner span { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.2em; color: white; margin: 0 2.5rem; }
+  .marquee-inner span.dot { color: rgba(255,255,255,0.4); margin: 0; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 6rem 4rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1; margin-bottom: 1.5rem; }
+  .section-sub { color: var(--gray); font-size: 0.95rem; font-weight: 300; line-height: 1.7; max-width: 480px; }
+
+  /* ── FEATURED SECTION ── */
+  .featured { background: var(--black); }
+  .featured-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .filter-tabs { display: flex; gap: 0.5rem; }
+  .tab-btn { background: none; border: 1px solid rgba(255,255,255,0.12); color: var(--gray); padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+  .tab-btn.active, .tab-btn:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+  .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+  .product-card {
+    background: var(--mid);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-6px); }
+  .product-card:hover .card-overlay { opacity: 1; }
+  .card-img {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #1e1c1a 0%, #2f2b27 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .card-img svg { width: 75%; transition: transform 0.4s ease; }
+  .product-card:hover .card-img svg { transform: scale(1.08) rotate(3deg); }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: rgba(200,55,45,0.12);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .card-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--accent); color: white;
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 2px;
+  }
+  .card-badge.sale { background: var(--accent2); }
+  .wishlist-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(10,10,10,0.6); border: none; color: var(--gray);
+    width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+    font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .wishlist-btn:hover, .wishlist-btn.active { color: var(--accent); background: rgba(200,55,45,0.15); }
+
+  .card-info { padding: 1.2rem; }
+  .card-brand { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+  .card-name { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-bottom: 0.8rem; }
+  .card-bottom { display: flex; align-items: center; justify-content: space-between; }
+  .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; color: var(--white); }
+  .card-price .old { font-size: 0.85rem; color: var(--gray); text-decoration: line-through; margin-left: 6px; font-family: 'DM Sans', sans-serif; }
+  .add-btn {
+    background: var(--accent); color: white; border: none;
+    width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+    font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .add-btn:hover { background: #a8271e; transform: scale(1.1); }
+  .card-colors { display: flex; gap: 5px; margin-bottom: 0.6rem; }
+  .color-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: transform 0.15s; }
+  .color-dot:hover { transform: scale(1.3); }
+
+  /* ── BRANDS ── */
+  .brands-section { background: var(--mid); padding: 4rem; }
+  .brands-grid { display: flex; gap: 4rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
+  .brand-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.18); transition: color 0.3s; cursor: pointer; }
+  .brand-logo:hover { color: var(--white); }
+
+  /* ── SPLIT FEATURE ── */
+  .split-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 60vh; }
+  .split-img {
+    background: linear-gradient(135deg, #1a1714 0%, #2a2420 100%);
+    display: flex; align-items: center; justify-content: center; padding: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .split-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 40% 60%, rgba(200,55,45,0.12) 0%, transparent 60%);
+  }
+  .split-img svg { width: 380px; position: relative; z-index: 1; }
+  .split-content { background: var(--cream); color: var(--black); display: flex; flex-direction: column; justify-content: center; padding: 5rem; }
+  .split-content .section-label { color: var(--accent); }
+  .split-content .section-title { color: var(--black); }
+  .split-content .section-sub { color: #5a5650; }
+  .features-list { display: flex; flex-direction: column; gap: 1.2rem; margin: 2rem 0; }
+  .feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .feature-icon { width: 36px; height: 36px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+  .feature-text strong { display: block; font-size: 0.9rem; font-weight: 500; color: var(--black); margin-bottom: 2px; }
+  .feature-text span { font-size: 0.82rem; color: #7a7470; line-height: 1.5; }
+  .btn-dark { background: var(--black); color: var(--white); border: none; padding: 1rem 2.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.2s; margin-top: 1rem; }
+  .btn-dark:hover { background: var(--mid); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter { background: var(--accent); text-align: center; padding: 5rem 4rem; }
+  .newsletter .section-label { color: rgba(255,255,255,0.7); }
+  .newsletter .section-title { color: white; }
+  .newsletter .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto 2.5rem; }
+  .nl-form { display: flex; gap: 0; max-width: 460px; margin: 0 auto; }
+  .nl-input {
+    flex: 1; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.25);
+    border-right: none; color: white; padding: 0.9rem 1.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; border-radius: 2px 0 0 2px;
+  }
+  .nl-input::placeholder { color: rgba(255,255,255,0.5); }
+  .nl-btn {
+    background: var(--black); color: white; border: none;
+    padding: 0.9rem 1.8rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; border-radius: 0 2px 2px 0; transition: background 0.2s;
+  }
+  .nl-btn:hover { background: var(--mid); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--mid); padding: 4rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.1em; color: var(--white); margin-bottom: 1rem; }
+  .footer-logo span { color: var(--accent); }
+  .footer-tagline { color: var(--gray); font-size: 0.85rem; font-weight: 300; line-height: 1.6; max-width: 260px; }
+  .footer-socials { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+  .social-btn { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+  .social-btn:hover { border-color: var(--white); color: var(--white); }
+  .footer-col h4 { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul a { color: var(--gray); text-decoration: none; font-size: 0.85rem; font-weight: 300; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { color: var(--gray); font-size: 0.8rem; }
+
+  /* ── CART DRAWER ── */
+  .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-drawer {
+    position: fixed; top: 0; right: -420px; width: 420px; height: 100vh;
+    background: #161412; z-index: 201; transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+  }
+  .cart-drawer.open { right: 0; }
+  .cart-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .cart-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; }
+  .close-btn { background: none; border: none; color: var(--gray); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; }
+  .close-btn:hover { color: var(--white); }
+  .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .cart-item { display: flex; gap: 1rem; background: var(--mid); border-radius: 4px; padding: 1rem; }
+  .cart-item-img { width: 70px; height: 70px; background: #1e1c1a; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cart-item-img svg { width: 55px; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 0.85rem; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+  .cart-item-meta { font-size: 0.75rem; color: var(--gray); margin-bottom: 8px; }
+  .cart-item-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .cart-item-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--white); }
+  .qty-control { display: flex; align-items: center; gap: 8px; }
+  .qty-btn { background: rgba(255,255,255,0.08); border: none; color: var(--white); width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .qty-btn:hover { background: var(--accent); }
+  .qty-num { font-size: 0.85rem; min-width: 16px; text-align: center; }
+  .cart-footer { padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .cart-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+  .cart-total-label { font-size: 0.85rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+  .cart-total-price { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--white); }
+  .checkout-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 1.1rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+  .checkout-btn:hover { background: #a8271e; }
+  .cart-empty { text-align: center; color: var(--gray); padding: 3rem 1rem; }
+  .cart-empty p { font-size: 0.9rem; margin-top: 0.8rem; }
+
+  /* ── TOAST ── */
+  .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--mid); color: var(--white); padding: 0.9rem 1.8rem; border-radius: 4px; font-size: 0.85rem; border-left: 3px solid var(--accent); z-index: 300; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); white-space: nowrap; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 2rem 3rem; }
+    .hero-image-side { display: none; }
+    section { padding: 4rem 2rem; }
+    .split-feature { grid-template-columns: 1fr; }
+    .split-img { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .featured-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+  @media (max-width: 600px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .cart-drawer { width: 100%; right: -100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">STRY<span>DE</span></div>
+  <ul class="nav-links">
+    <li><a href="#featured">New Arrivals</a></li>
+    <li><a href="#featured">Men</a></li>
+    <li><a href="#featured">Women</a></li>
+    <li><a href="#featured">Collections</a></li>
+    <li><a href="#featured">Sale</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="nav-cta" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-tag">New Season 2025 Collection</div>
+    <h1 class="hero-headline">STEP<br><em>BEYOND</em><br>LIMITS</h1>
+    <p class="hero-sub">Engineered for athletes. Designed for visionaries. Premium footwear that moves as fast as your ambitions.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
+      <a href="#split" class="btn-ghost">Our Story</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">12K+</div><div class="stat-label">Happy Customers</div></div>
+      <div><div class="stat-num">200+</div><div class="stat-label">Shoe Styles</div></div>
+      <div><div class="stat-num">4.9★</div><div class="stat-label">Avg Rating</div></div>
+    </div>
+  </div>
+  <div class="hero-image-side">
+    <div class="shoe-showcase">
+      <svg class="shoe-svg" viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="240" cy="260" rx="190" ry="18" fill="rgba(200,55,45,0.2)"/>
+        <path d="M60 200 C80 180 130 160 200 155 L320 148 C380 145 420 155 440 175 L445 195 C445 210 430 220 400 222 L100 228 C75 228 58 218 60 200Z" fill="#1e1c1a" stroke="#3a3632" stroke-width="1.5"/>
+        <path d="M60 200 C80 180 130 160 200 155 L320 148" stroke="rgba(200,55,45,0.4)" stroke-width="1" fill="none" stroke-dasharray="4,3"/>
+        <path d="M200 155 L210 100 C215 75 235 60 270 58 L380 55 C410 54 430 65 435 82 L440 175" fill="#c8372d"/>
+        <path d="M200 155 L210 100 C215 75 235 60 270 58 L380 55 C410 54 430 65 435 82 L440 175" fill="url(#shoeGrad)"/>
+        <defs>
+          <linearGradient id="shoeGrad" x1="200" y1="58" x2="440" y2="200" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#d84035"/>
+            <stop offset="100%" stop-color="#9a2820"/>
+          </linearGradient>
+        </defs>
+        <path d="M210 100 L310 95 C350 93 390 98 420 115 L435 130 L440 150 L320 148 L200 155 Z" fill="rgba(255,255,255,0.05)"/>
+        <path d="M250 90 L270 58" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+        <path d="M300 88 L315 56" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+        <path d="M350 90 L360 58" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+        <path d="M220 130 L420 118" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <path d="M215 145 L415 138" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <ellipse cx="420" cy="170" rx="15" ry="20" fill="#0a0a0a"/>
+        <ellipse cx="420" cy="170" rx="10" ry="14" fill="#1a1816"/>
+        <text x="240" y="245" font-family="Bebas Neue" font-size="11" fill="rgba(200,55,45,0.6)" letter-spacing="4" text-anchor="middle">STRYDE PRO X1</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>New Arrivals</span><span class="dot">◆</span>
+    <span>Free Shipping Over ₹999</span><span class="dot">◆</span>
+    <span>Spring Summer 2025</span><span class="dot">◆</span>
+    <span>Limited Edition Drops</span><span class="dot">◆</span>
+    <span>Easy 30-Day Returns</span><span class="dot">◆</span>
+    <span>New Arrivals</span><span class="dot">◆</span>
+    <span>Free Shipping Over ₹999</span><span class="dot">◆</span>
+    <span>Spring Summer 2025</span><span class="dot">◆</span>
+    <span>Limited Edition Drops</span><span class="dot">◆</span>
+    <span>Easy 30-Day Returns</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section id="featured" class="featured">
+  <div class="featured-header">
+    <div>
+      <div class="section-label">Curated For You</div>
+      <h2 class="section-title">FEATURED<br>COLLECTION</h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="filterProducts('all', this)">All</button>
+      <button class="tab-btn" onclick="filterProducts('running', this)">Running</button>
+      <button class="tab-btn" onclick="filterProducts('lifestyle', this)">Lifestyle</button>
+      <button class="tab-btn" onclick="filterProducts('sport', this)">Sport</button>
+    </div>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- BRANDS -->
+<div class="brands-section">
+  <p style="text-align:center; font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gray);">Premium Brands We Carry</p>
+  <div class="brands-grid">
+    <div class="brand-logo">NIKE</div>
+    <div class="brand-logo">ADIDAS</div>
+    <div class="brand-logo">NEW BALANCE</div>
+    <div class="brand-logo">PUMA</div>
+    <div class="brand-logo">ASICS</div>
+    <div class="brand-logo">REEBOK</div>
+  </div>
+</div>
+
+<!-- SPLIT FEATURE -->
+<div id="split" class="split-feature">
+  <div class="split-img">
+    <svg viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="190" cy="340" rx="150" ry="14" fill="rgba(200,55,45,0.15)"/>
+      <path d="M40 270 C60 245 120 220 190 215 L300 208 C350 205 375 218 378 240 L380 260 C380 280 362 290 325 292 L80 298 C52 298 38 284 40 270Z" fill="#2a2420" stroke="#3a3230" stroke-width="1.5"/>
+      <path d="M190 215 L198 145 C204 108 228 85 272 82 L358 79 C385 78 400 92 402 113 L405 240" fill="url(#shoeGrad2)"/>
+      <defs>
+        <linearGradient id="shoeGrad2" x1="190" y1="82" x2="405" y2="265" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#e84a3d"/>
+          <stop offset="100%" stop-color="#8a2018"/>
+        </linearGradient>
+      </defs>
+      <path d="M198 145 L295 139 C335 137 370 148 395 167 L405 185 L405 210 L300 208 L190 215 Z" fill="rgba(255,255,255,0.04)"/>
+      <path d="M240 128 L255 82" stroke="rgba(255,255,255,0.25)" stroke-width="2.5"/>
+      <path d="M285 124 L298 79" stroke="rgba(255,255,255,0.25)" stroke-width="2.5"/>
+      <path d="M330 126 L338 80" stroke="rgba(255,255,255,0.25)" stroke-width="2.5"/>
+      <ellipse cx="390" cy="225" rx="12" ry="17" fill="#0a0a0a"/>
+      <text x="190" y="318" font-family="Bebas Neue" font-size="10" fill="rgba(200,55,45,0.5)" letter-spacing="4" text-anchor="middle">STRYDE AIR ELITE</text>
+    </svg>
+  </div>
+  <div class="split-content">
+    <div class="section-label">Why Stryde</div>
+    <h2 class="section-title">BUILT FOR<br>PERFORMANCE</h2>
+    <p class="section-sub">Every stitch, every sole, every silhouette — engineered with obsession to push you further.</p>
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-text">
+          <strong>AirLite Foam Technology</strong>
+          <span>Ultra-responsive cushioning that returns energy with every stride.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌿</div>
+        <div class="feature-text">
+          <strong>Sustainable Materials</strong>
+          <span>40% recycled content across our entire 2025 collection.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-text">
+          <strong>PrecisionFit System</strong>
+          <span>Adaptive lacing that locks your foot in place — zero slip, zero fuss.</span>
+        </div>
+      </div>
+    </div>
+    <button class="btn-dark" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">Shop All Shoes</button>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="section-label">Stay in the Loop</div>
+  <h2 class="section-title" style="color:white;">GET EARLY<br>ACCESS</h2>
+  <p class="section-sub">Drop alerts, exclusive offers, and new arrivals — direct to your inbox. No spam, ever.</p>
+  <div class="nl-form">
+    <input type="email" class="nl-input" placeholder="your@email.com" id="nlEmail">
+    <button class="nl-btn" onclick="subscribeNewsletter()">Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">STRY<span>DE</span></div>
+      <p class="footer-tagline">Premium footwear for those who move with purpose. Crafted for athletes, worn by visionaries.</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="#" title="Instagram">📸</a>
+        <a class="social-btn" href="#" title="Twitter">🐦</a>
+        <a class="social-btn" href="#" title="Facebook">👍</a>
+        <a class="social-btn" href="#" title="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Men's Shoes</a></li>
+        <li><a href="#">Women's Shoes</a></li>
+        <li><a href="#">Sale</a></li>
+        <li><a href="#">Collections</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Sizing Guide</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Stryde</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Affiliates</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Stryde Footwear. All rights reserved.</p>
+    <p>Privacy Policy · Terms of Service · Cookie Settings</p>
+  </div>
+</footer>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>YOUR CART</h3>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">🛒<p>Your cart is empty</p></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-price" id="cartTotal">₹0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ──
+const products = [
+  { id:1, name:'Stryde Pro X1', brand:'Stryde', price:8999, oldPrice:null, badge:'New', category:'running', colors:['#c8372d','#1e1c1a','#fff'], imgColor:'#c8372d' },
+  { id:2, name:'Air Street Low', brand:'Stryde', price:6499, oldPrice:8999, badge:'Sale', category:'lifestyle', colors:['#fff','#3a7bd5','#1e1c1a'], imgColor:'#3a7bd5' },
+  { id:3, name:'PowerStride 5', brand:'Stryde', price:10499, oldPrice:null, badge:'Bestseller', category:'sport', colors:['#000','#ff6b35','#4caf50'], imgColor:'#ff6b35' },
+  { id:4, name:'CloudRun Elite', brand:'Stryde', price:9299, oldPrice:11999, badge:'Sale', category:'running', colors:['#fff','#c8372d','#666'], imgColor:'#8bc34a' },
+  { id:5, name:'Urban Slip Low', brand:'Stryde', price:4999, oldPrice:null, badge:'New', category:'lifestyle', colors:['#c8372d','#fff'], imgColor:'#9c27b0' },
+  { id:6, name:'CourtKing Pro', brand:'Stryde', price:7299, oldPrice:null, badge:null, category:'sport', colors:['#fff','#000','#ffd700'], imgColor:'#ffd700' },
+  { id:7, name:'TrailBlazer XT', brand:'Stryde', price:11999, oldPrice:null, badge:'Limited', category:'running', colors:['#4caf50','#000','#ff9800'], imgColor:'#ff9800' },
+  { id:8, name:'Classic Retro OG', brand:'Stryde', price:5799, oldPrice:7499, badge:'Sale', category:'lifestyle', colors:['#fff','#333','#e91e63'], imgColor:'#e91e63' },
+];
+
+function makeShoeIcon(color) {
+  return `<svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="100" cy="108" rx="75" ry="7" fill="rgba(0,0,0,0.2)"/>
+    <path d="M20 78 C30 68 60 60 90 58 L145 55 C172 54 184 60 185 72 L186 82 C186 90 178 94 160 95 L35 98 C22 98 18 88 20 78Z" fill="#222" stroke="#333" stroke-width="1"/>
+    <path d="M90 58 L95 28 C98 14 112 6 132 6 L172 5 C185 5 190 12 191 22 L185 72" fill="${color}"/>
+    <path d="M95 28 L140 25 C160 24 178 30 188 43 L191 55 L185 72 L145 55 L90 58 Z" fill="rgba(255,255,255,0.07)"/>
+    <path d="M110 22 L115 6" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <path d="M135 20 L138 5" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <path d="M158 22 L160 6" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <ellipse cx="181" cy="68" rx="6" ry="8" fill="#111"/>
+  </svg>`;
+}
+
+// ── CART STATE ──
+let cart = [];
+let wishlist = new Set();
+
+function renderProducts(filter='all') {
+  const grid = document.getElementById('productsGrid');
+  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" data-id="${p.id}">
+      <div class="card-img">
+        ${makeShoeIcon(p.imgColor)}
+        <div class="card-overlay"></div>
+        ${p.badge ? `<div class="card-badge ${p.badge==='Sale'?'sale':''}">${p.badge}</div>` : ''}
+        <button class="wishlist-btn ${wishlist.has(p.id)?'active':''}" onclick="toggleWishlist(${p.id}, this)">♡</button>
+      </div>
+      <div class="card-info">
+        <div class="card-brand">${p.brand}</div>
+        <div class="card-colors">${p.colors.map(c=>`<div class="color-dot" style="background:${c}"></div>`).join('')}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-bottom">
+          <div class="card-price">₹${p.price.toLocaleString('en-IN')}${p.oldPrice?`<span class="old">₹${p.oldPrice.toLocaleString('en-IN')}</span>`:''}</div>
+          <button class="add-btn" onclick="addToCart(${p.id})">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
+
+function toggleWishlist(id, btn) {
+  if (wishlist.has(id)) { wishlist.delete(id); btn.classList.remove('active'); btn.textContent = '♡'; }
+  else { wishlist.add(id); btn.classList.add('active'); btn.textContent = '♥'; showToast('Added to wishlist!'); }
+}
+
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  const existing = cart.find(x => x.id === id);
+  if (existing) { existing.qty++; }
+  else { cart.push({ ...p, qty: 1 }); }
+  updateCartUI();
+  showToast(`${p.name} added to cart!`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x => x.id !== id);
+  updateCartUI();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id);
+  else updateCartUI();
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s, x) => s + x.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+  const container = document.getElementById('cartItems');
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty">🛒<p>Your cart is empty</p></div>';
+    return;
+  }
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img">${makeShoeIcon(item.imgColor)}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-meta">Size: 42 · ${item.category}</div>
+        <div class="cart-item-bottom">
+          <div class="cart-item-price">₹${item.price.toLocaleString('en-IN')}</div>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, +1)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleCart() {
+  document.getElementById('cartDrawer').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function checkout() {
+  if (cart.length === 0) { showToast('Your cart is empty!'); return; }
+  showToast('🎉 Order placed successfully!');
+  cart = [];
+  updateCartUI();
+  toggleCart();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function subscribeNewsletter() {
+  const email = document.getElementById('nlEmail').value;
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email!'); return; }
+  showToast('✓ You\'re subscribed! Welcome to Stryde.');
+  document.getElementById('nlEmail').value = '';
+}
+
+// ── INIT ──
+renderProducts();
+</script>
+</body>
+</html>
